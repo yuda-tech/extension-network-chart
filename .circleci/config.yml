@@ -89,9 +89,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
-      - run: zip -r "sn-network-chart-ext.zip" "./sn-network-chart-ext"
+      - run: zip -r "extension-network-chart-ext.zip" "./extension-network-chart-ext"
       - store_artifacts:
-          path: ./sn-network-chart-ext.zip
+          path: ./extension-network-chart-ext.zip
 
   publish:
     <<: *defaults

@@ -1,4 +1,4 @@
-# @nebula.js/sn-network-chart
+# @nebula.js/extension-network-chart
 
 The network chart is built using [visjs network visualization](https://github.com/visjs/vis-network) to display networks of nodes and edges. It was originally forked from [miclae76/network-vis-chart](miclae76/network-vis-chart) and has since been converted to use Nebula.
 
@@ -11,15 +11,15 @@ Requires `@nebula.js/stardust` version `1.7.0` or later.
 
 ## Installing
 
-If you use npm: `npm install @nebula.js/sn-network-chart`.
+If you use npm: `npm install @nebula.js/extension-network-chart`.
 
-You can also load through the script tag directly from [https://unpkg.com](https://unpkg.com/@nebula.js/sn-network-chart).
+You can also load through the script tag directly from [https://unpkg.com](https://unpkg.com/@nebula.js/extension-network-chart).
 
 ## Usage
 
 ```js
 import { embed } from '@nebula.js/stardust';
-import network from '@nebula.js/sn-network-chart';
+import network from '@nebula.js/extension-network-chart';
 
 // 'app' is an enigma app model
 const nuked = embed(app, {

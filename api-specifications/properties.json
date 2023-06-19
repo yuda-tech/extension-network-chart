@@ -1,7 +1,7 @@
 {
   "scriptappy": "1.1.0",
   "info": {
-    "name": "@nebula.js/sn-network-chart:properties",
+    "name": "@nebula.js/extension-network-chart:properties",
     "description": "Network chart generic object definition",
     "version": "0.3.0",
     "license": "MIT",

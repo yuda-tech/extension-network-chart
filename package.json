@@ -1,5 +1,5 @@
 {
-  "name": "@nebula.js/sn-network-chart",
+  "name": "@nebula.js/extension-network-chart",
   "version": "0.3.0",
   "description": "Displays hierarchical or relational dimensions as nodes and edges´, with measures to show the significance of its links.",
   "homepage": "",
@@ -8,23 +8,23 @@
   "license": "MIT",
   "scripts": {
     "start": "nebula serve --build false --type qlik-network-chart",
-    "watch": "nebula serve --type sn-network-chart",
+    "watch": "nebula serve --type extension-network-chart",
     "watch:legacy": "nebula serve --type qlik-network-chart",
     "build": "nebula build --core core",
-    "sense": "nebula sense --meta resources/meta.json && shx cp resources/network_chart_v1.png sn-network-chart-ext",
+    "sense": "nebula sense --meta resources/meta.json && shx cp resources/network_chart_v1.png extension-network-chart-ext",
     "eslint": "eslint src",
     "spec": "sy from-jsdoc -c ./spec-configs/props.conf.js",
     "test:unit": "jest",
-    "prepublishOnly": "shx rm -rf dist && shx rm -rf core/esm && shx rm -rf sn-network-chart-ext && yarn build && yarn sense"
+    "prepublishOnly": "shx rm -rf dist && shx rm -rf core/esm && shx rm -rf extension-network-chart-ext && yarn build && yarn sense"
   },
   "files": [
     "api-specifications",
     "dist",
     "core",
-    "sn-network-chart-ext"
+    "extension-network-chart-ext"
   ],
-  "main": "dist/sn-network-chart.js",
-  "systemjs": "dist/sn-network-chart.systemjs.js",
+  "main": "dist/extension-network-chart.js",
+  "systemjs": "dist/extension-network-chart.systemjs.js",
   "devDependencies": {
     "@nebula.js/cli": "4.0.3",
     "@nebula.js/cli-build": "4.0.3",

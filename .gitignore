@@ -1,7 +1,7 @@
 node_modules/
 dist/
 BUMPED_VERSION
-sn-network-chart-ext/
+extension-network-chart-ext/
 core/esm
 coverage
 yarn-error.log
