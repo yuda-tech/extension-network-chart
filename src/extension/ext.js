@@ -1,4 +1,20 @@
-import { dimLongDesc } from './strings';
+import { dimLongDesc, nodeTypeLongDesc } from './strings';
+
+const conditionalShowOnDimensions = (properties, handler, items) => {
+  let index;
+  handler.getDimensions().forEach((element, i) => {
+    if (element.qDef.cId === properties.qDef.cId) {
+      index = i;
+    }
+  });
+  const itemsToIndex = items.map((item) => {
+    if (item === "id") return 0;
+    if (item === "label") return 1;
+    if (item === "parentid") return 2;
+    if (item === "group") return 3;
+  });
+  return itemsToIndex.includes(index);
+};
 
 export default function ext() {
   return {
@@ -8,23 +24,64 @@ export default function ext() {
       items: {
         data: {
           uses: "data",
-          items:{
-            dimensions:{
+          items: {
+            dimensions: {
               disabledRef: "",
               items: {
                 helpDesc: {
                   component: 'text',
                   style: 'qlik-network-chart-italic-property',
-                  label: function(properties, handler) {
-                    var index;
+                  label: function (properties, handler) {
+                    let index;
                     handler.getDimensions().forEach((element, i) => {
-                      if(element.qDef.cId === properties.qDef.cId) {
+                      if (element.qDef.cId === properties.qDef.cId) {
                         index = i;
                       }
                     });
                     return dimLongDesc[index];
                   }
-                }
+                },
+                nodeColorExpr: {
+                  ref: "qAttributeExpressions.0.qExpression",
+                  label: "Node Color Expression",
+                  type: "string",
+                  component: "expression",
+                  show: (properties, handler) => conditionalShowOnDimensions(properties, handler, ["id"]),
+                },
+                nodeType: {
+                  ref: "qDef.nodeType",
+                  label: "Node Type",
+                  type: "string",
+                  component: "dropdown",
+                  options: [
+                    { value: "shapes", label: "Shape" },
+                    { value: "icon", label: "Icon" },
+                    { value: "image", label: "Image" },
+                  ],
+                  defaultValue: "shapes",
+                  show: (properties, handler) => conditionalShowOnDimensions(properties, handler, ["id"]),
+                },
+                nodeTypeHelpDesc: {
+                  component: 'text',
+                  style: 'qlik-network-chart-italic-property',
+                  label: function (properties) {
+                    const nodeType = properties.qDef.nodeType;
+                    if (nodeType) {
+                      return nodeTypeLongDesc[nodeType];
+                    }
+                  },
+                  show: (properties, handler) => 
+                    conditionalShowOnDimensions(properties, handler, ["id"]) && properties.qDef.nodeType,
+                },
+                nodeTypeExpr: {
+                  ref: "qAttributeExpressions.1.qExpression",
+                  label: "Node Type Expression",
+                  type: "string",
+                  component: "expression",
+                  defaultValue: "dot",
+                  show: (properties, handler) => 
+                    conditionalShowOnDimensions(properties, handler, ["id"]) && properties.qDef.nodeType,
+                },
               }
             },
             measures: {
@@ -71,7 +128,7 @@ export default function ext() {
                   ],
                   defaultValue: "dynamic"
                 },
-                displayEdgeLabel : {
+                displayEdgeLabel: {
                   ref: "displayEdgeLabel",
                   type: "boolean",
                   component: "switch",
@@ -139,7 +196,7 @@ export default function ext() {
             },
             paragraph1: {
               label:
-              `Network chart is Qlik Sense chart which
+                `Network chart is Qlik Sense chart which
               allows you to draw a network of connected
               nodes and edges from a data set to a sheet.`,
               component: 'text'

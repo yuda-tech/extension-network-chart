@@ -2,6 +2,7 @@ import { Network } from 'vis-network';
 import { createTooltipHTML } from './tooltip';
 import { escapeHTML } from './utilities';
 import './styles/main.css';
+import 'font-awesome/css/font-awesome.css';
 
 function isTextCellNotEmpty(c) {
   return (c.qText && !(c.qIsNull || c.qText.trim() == ''));
@@ -14,6 +15,8 @@ function getColor (index, colors) {
 export default function paint ( { element,layout, theme, selections, constraints } ) {
   return new Promise((resolve) => {
     const colorScale = theme.getDataColorPalettes()[0];
+    console.log('qHyperCubeDef', layout.qHyperCube);
+    const dimensions = layout.qHyperCube.qDimensionInfo;
     const numDimensions = layout.qHyperCube.qDimensionInfo.length;
     const numMeasures = layout.qHyperCube.qMeasureInfo.length;
 
@@ -31,6 +34,7 @@ export default function paint ( { element,layout, theme, selections, constraints
 
       var dataSet = qData.qMatrix.map(function(e){
         const nodeName = e[1].qText;
+        const nodeAttrs = e[0]?.qAttrExps?.qValues;
         let groupNumber;
 
         const dataItem = {
@@ -43,6 +47,26 @@ export default function paint ( { element,layout, theme, selections, constraints
         if(numDimensions === 4) {
           groupNumber = e[3].qText;
           dataItem.group = groupNumber;
+        }
+
+        // custom node color
+        if (nodeAttrs && nodeAttrs[0]) {
+          dataItem.color = nodeAttrs[0].qText;
+        }
+        // custom node type
+        if (nodeAttrs && nodeAttrs[1]) {
+          if (dimensions[0].nodeType === "shapes") {
+            dataItem.shape = nodeAttrs[1].qText;
+          } else if (dimensions[0].nodeType === "icon") {
+            dataItem.shape = "icon";
+            dataItem.icon = {
+              face: "FontAwesome",
+              code: nodeAttrs[1].qText,
+            };
+          } else if (dimensions[0].nodeType === "image") {
+            dataItem.shape = "image";
+            dataItem.image = nodeAttrs[1].qText;
+          }
         }
 
         // optional measures set
@@ -112,7 +136,11 @@ export default function paint ( { element,layout, theme, selections, constraints
             label: dataSet[i].label,
             title: dataSet[i].title,
             group: dataSet[i].group,
-            value: dataSet[i].nodeValue
+            value: dataSet[i].nodeValue,
+            color: dataSet[i].color,
+            shape: dataSet[i].shape,
+            icon: dataSet[i].icon,
+            image: dataSet[i].image,
           };
           nodes.push(nodeItem); // create node
           groups[nodeItem.group] = {};
@@ -139,7 +167,6 @@ export default function paint ( { element,layout, theme, selections, constraints
           randomSeed: 34545 //"0.6610209392878246:1631081903504"
         },
         nodes: {
-          shape:layout.nodeShape,
           shadow:layout.shadowMode
         },
         edges: {
@@ -152,7 +179,7 @@ export default function paint ( { element,layout, theme, selections, constraints
           }
         },
         interaction: {
-          hideEdgesOnDrag: true,
+          hideEdgesOnDrag: false,
           selectable: !constraints.active && !constraints.select,
           tooltipDelay: 100,
           multiselect: true,
@@ -171,6 +198,10 @@ export default function paint ( { element,layout, theme, selections, constraints
           stabilization: { iterations: 150 }
         }
       };
+      console.log(
+        'data: ', data,
+        'options: ', options,
+      );
       var network = new Network(container, data, options);
       network.fit();
       network.on('select', function (properties) {
