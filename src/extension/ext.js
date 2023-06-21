@@ -128,6 +128,24 @@ export default function ext() {
                   ],
                   defaultValue: "dynamic"
                 },
+                edgeColor: {
+                  ref: "edgeColor",
+                  type: "string",
+                  component: "dropdown",
+                  label: "Edge Color",
+                  options: [
+                    { label: 'Source Node', value: 'source' },
+                    { label: 'Target Node', value: 'target' },
+                    { label: 'Custom', value: 'custom' },
+                  ],
+                  defaultValue: "source"
+                },
+                edgeColorExpr: {
+                  ref: "edgeColorExpr",
+                  type: "string",
+                  expression: "optional",
+                  show: (properties) => properties.edgeColor === 'custom',
+                },
                 edgeReverse: {
                   ref: "edgeReverse",
                   type: "boolean",

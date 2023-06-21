@@ -113,16 +113,24 @@ export default function paint({ element, layout, theme, selections, constraints 
       for (let i = 0; i < dataSet.length; i++) {
         if (layout.displayEdgeLabel && dataSet[i].edgeValue !== undefined) {
           edges.push({
-            "from": layout.edgeReverse ? dataSet[i].parentid : dataSet[i].id,
-            "to": layout.edgeReverse ? dataSet[i].id : dataSet[i].parentid,
-            "value": dataSet[i].edgeValue,
-            "label": `${dataSet[i].edgeValue}`
+            from: layout.edgeReverse ? dataSet[i].parentid : dataSet[i].id,
+            to: layout.edgeReverse ? dataSet[i].id : dataSet[i].parentid,
+            value: dataSet[i].edgeValue,
+            label: `${dataSet[i].edgeValue}`,
+            color: {
+              color: layout.edgeColor === 'custom' ? layout.edgeColorExpr : undefined,
+              inherit: layout.edgeColor === 'source' ? 'from' : (layout.edgeColor === 'target' ? 'to' : false),
+            }
           }); // with labels
         } else {
           edges.push({
-            "from": layout.edgeReverse ? dataSet[i].parentid : dataSet[i].id,
-            "to": layout.edgeReverse ? dataSet[i].id : dataSet[i].parentid,
-            "value": dataSet[i].edgeValue
+            from: layout.edgeReverse ? dataSet[i].parentid : dataSet[i].id,
+            to: layout.edgeReverse ? dataSet[i].id : dataSet[i].parentid,
+            value: dataSet[i].edgeValue,
+            color: {
+              color: layout.edgeColor === 'custom' ? layout.edgeColorExpr : undefined,
+              inherit: layout.edgeColor === 'source' ? 'from' : (layout.edgeColor === 'target' ? 'to' : false),
+            }
           }); // create edges
         }
 

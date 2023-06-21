@@ -39,6 +39,10 @@ export default {
    */
   edgeType: "dynamic",
   /**
+   * @type {('source'|'target'|'custom')=}
+   */
+  edgeColor: "source",
+  /**
    * @type {boolean=}
    */
   edgeReverse: false,
@@ -47,17 +51,21 @@ export default {
    */
   displayEdgeLabel: false,
   /**
+   * @type {boolean=}
+   */
+  arrowFrom: false,
+  /**
+   * @type {boolean=}
+   */
+  arrowMiddle: false,
+  /**
+   * @type {boolean=}
+   */
+  arrowTo: false,
+  /**
    * @type {('top'|'middle'|'bottom'|'horizontal')=}
    */
   posEdgeLabel: "top",
-  /**
-   * @type {('dot'|'square'|'star'|'triangle'|'triangleDown'|'diamond')=}
-   */
-  nodeShape: "dot",
-  /**
-   * @type {('from'|'middle'|'to')=}
-   */
-  arrowType: [],
   /**
    * @type {boolean=}
    */
