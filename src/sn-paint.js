@@ -269,7 +269,7 @@ export default function paint({ element, layout, theme, selections, constraints 
         const process = Math.round(widthFactor * 100) + "%";
         showSplash({
           containerId: containerId,
-          title: `${process}`
+          title: `Loading ... ${process}`
         });
       });
 

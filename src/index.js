@@ -25,7 +25,7 @@ export default function supernova() {
 
       usePromise(()=>
         paint({ element,layout, theme, constraints, selections }).then((n)=>setNetwork(n)),
-      [layout, element, theme.name(), constraints ]);
+      [layout]);
     },
 
     ext: ext(),
