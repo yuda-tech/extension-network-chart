@@ -36,3 +36,14 @@
 button {
   flex: 1;
 }
+
+.extension-network-chart {
+  background-color: #000000;
+  opacity: 0.5;
+  z-index: 10100;
+}
+
+.extension-network-chart-delete {
+  opacity: 0;
+  transition: opacity 1s;
+}

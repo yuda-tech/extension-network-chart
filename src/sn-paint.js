@@ -3,6 +3,7 @@ import { createTooltipHTML } from './tooltip';
 import { escapeHTML } from './utilities';
 import './styles/main.css';
 import 'font-awesome/css/font-awesome.css';
+import { hideSplash, showSplash } from './splash';
 
 function isTextCellNotEmpty(c) {
   return (c.qText && !(c.qIsNull || c.qText.trim() == ''));
@@ -15,7 +16,6 @@ function getColor(index, colors) {
 export default function paint({ element, layout, theme, selections, constraints }) {
   return new Promise((resolve) => {
     const colorScale = theme.getDataColorPalettes()[0];
-    console.log('qHyperCubeDef', layout.qHyperCube);
     const dimensions = layout.qHyperCube.qDimensionInfo;
     const numDimensions = layout.qHyperCube.qDimensionInfo.length;
     const numMeasures = layout.qHyperCube.qMeasureInfo.length;
@@ -199,13 +199,18 @@ export default function paint({ element, layout, theme, selections, constraints 
           }
         },
         interaction: {
-          hideEdgesOnDrag: false,
+          hideEdgesOnDrag: true,
           selectable: !constraints.active && !constraints.select,
           tooltipDelay: 100,
           multiselect: true,
           selectConnectedEdges: true
         },
         physics: {
+          barnesHut: {
+            gravitationalConstant: -80000,
+            springConstant: 0.001,
+            springLength: 200
+          },
           forceAtlas2Based: {
             gravitationalConstant: -100,
             centralGravity: 0.005,
@@ -259,8 +264,18 @@ export default function paint({ element, layout, theme, selections, constraints 
         }
       });
 
+      network.on("stabilizationProgress", function (params) {
+        const widthFactor = params.iterations / params.total;
+        const process = Math.round(widthFactor * 100) + "%";
+        showSplash({
+          containerId: containerId,
+          title: `${process}`
+        });
+      });
+
       network.on('stabilizationIterationsDone', function () {
         network.stopSimulation();
+        hideSplash();
         resolve(network);
       });
     } else {
