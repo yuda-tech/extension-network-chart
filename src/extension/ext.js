@@ -128,6 +128,20 @@ export default function ext() {
                   ],
                   defaultValue: "dynamic"
                 },
+                edgeReverse: {
+                  ref: "edgeReverse",
+                  type: "boolean",
+                  component: "switch",
+                  label: "Reverse Edge",
+                  options: [{
+                    value: true,
+                    label: "On"
+                  }, {
+                    value: false,
+                    label: "Off"
+                  }],
+                  defaultValue: false
+                },
                 displayEdgeLabel: {
                   ref: "displayEdgeLabel",
                   type: "boolean",

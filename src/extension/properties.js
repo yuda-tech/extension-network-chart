@@ -41,6 +41,10 @@ export default {
   /**
    * @type {boolean=}
    */
+  edgeReverse: false,
+  /**
+   * @type {boolean=}
+   */
   displayEdgeLabel: false,
   /**
    * @type {('top'|'middle'|'bottom'|'horizontal')=}
