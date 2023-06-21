@@ -51,6 +51,10 @@ export default {
    */
   nodeShape: "dot",
   /**
+   * @type {('from'|'middle'|'to')=}
+   */
+  arrowType: [],
+  /**
    * @type {boolean=}
    */
   shadowMode: false,

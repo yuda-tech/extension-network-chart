@@ -152,6 +152,49 @@ export default function ext() {
                   ],
                   defaultValue: "top"
                 },
+                arrowType: {
+                  ref: "arrowType",
+                  type: "string",
+                  component: {
+                    template: `
+                      <div class="chart-title-font-style-wrapper">
+                        <div class="chart-title-font-style-label">Arrows</div>
+                        <div class="lui-buttongroup chart-title-font-style-selector">
+                          <button
+                            class="lui-button"
+                            ng-class="{'lui-active': data.arrowFrom}"
+                            title="From"
+                            ng-click="handleClick('arrowFrom')"
+                          >
+                            From
+                          </button>
+                          <button
+                            class="lui-button"
+                            ng-class="{'lui-active': data.arrowMiddle}"
+                            title="Middle"
+                            ng-click="handleClick('arrowMiddle')"
+                          >
+                            Middle
+                          </button>
+                          <button
+                            class="lui-button"
+                            ng-class="{'lui-active': data.arrowTo}"
+                            title="To"
+                            ng-click="handleClick('arrowTo')"
+                          >
+                            To
+                          </button>
+                        </div>
+                      </div>
+                    `,
+                    controller: ["$scope", "$element", function($s) {
+                      $s.handleClick = (arrow) => {
+                        $s.data[arrow] = !$s.data[arrow];
+                        $s.$emit("saveProperties");
+                      };
+                    }]
+                  }
+                },
                 shadowMode: {
                   ref: "shadowMode",
                   type: "boolean",

@@ -164,12 +164,24 @@ export default function paint ( { element,layout, theme, selections, constraints
       var options = {
         groups: groups,
         layout: {
-          randomSeed: 34545 //"0.6610209392878246:1631081903504"
+          randomSeed: 34545, //"0.6610209392878246:1631081903504"
+          improvedLayout: false,
         },
         nodes: {
           shadow:layout.shadowMode
         },
         edges: {
+          arrows: {
+            from: {
+              enabled: !!layout.arrowFrom,
+            },
+            middle: {
+              enabled: !!layout.arrowMiddle,
+            },
+            to: {
+              enabled: !!layout.arrowTo,
+            }
+          },
           shadow:layout.shadowMode,
           font: {
             align: layout.posEdgeLabel

@@ -22,3 +22,17 @@
 .qlik-network-chart-italic-property {
   font-style: italic;
 }
+
+.chart-title-font-style-wrapper {
+  padding: 8px 10px;
+}
+.chart-title-font-style-label {
+  margin-bottom: 5px;
+}
+.chart-title-font-style-selector {
+  display: flex;
+}
+.chart-title-font-style-selector
+button {
+  flex: 1;
+}
