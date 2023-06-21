@@ -112,7 +112,7 @@ export default function paint({ element, layout, theme, selections, constraints 
 
       for (let i = 0; i < dataSet.length; i++) {
         if (layout.displayEdgeLabel && dataSet[i].edgeValue !== undefined) {
-          edges.push({
+          const edge = {
             from: layout.edgeReverse ? dataSet[i].parentid : dataSet[i].id,
             to: layout.edgeReverse ? dataSet[i].id : dataSet[i].parentid,
             value: dataSet[i].edgeValue,
@@ -121,9 +121,10 @@ export default function paint({ element, layout, theme, selections, constraints 
               color: layout.edgeColor === 'custom' ? layout.edgeColorExpr : undefined,
               inherit: layout.edgeColor === 'source' ? 'from' : (layout.edgeColor === 'target' ? 'to' : false),
             }
-          }); // with labels
+          };
+          if (edge.from !== edge.to) edges.push(edge); // with labels
         } else {
-          edges.push({
+          const edge = {
             from: layout.edgeReverse ? dataSet[i].parentid : dataSet[i].id,
             to: layout.edgeReverse ? dataSet[i].id : dataSet[i].parentid,
             value: dataSet[i].edgeValue,
@@ -131,7 +132,8 @@ export default function paint({ element, layout, theme, selections, constraints 
               color: layout.edgeColor === 'custom' ? layout.edgeColorExpr : undefined,
               inherit: layout.edgeColor === 'source' ? 'from' : (layout.edgeColor === 'target' ? 'to' : false),
             }
-          }); // create edges
+          };
+          if (edge.from !== edge.to) edges.push(edge); // create edges
         }
 
         // process uniqueness
