@@ -198,10 +198,6 @@ export default function paint ( { element,layout, theme, selections, constraints
           stabilization: { iterations: 150 }
         }
       };
-      console.log(
-        'data: ', data,
-        'options: ', options,
-      );
       var network = new Network(container, data, options);
       network.fit();
       network.on('select', function (properties) {

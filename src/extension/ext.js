@@ -78,7 +78,7 @@ export default function ext() {
                   label: "Node Type Expression",
                   type: "string",
                   component: "expression",
-                  defaultValue: "dot",
+                  defaultValue: "='dot'",
                   show: (properties, handler) => 
                     conditionalShowOnDimensions(properties, handler, ["id"]) && properties.qDef.nodeType,
                 },
@@ -151,21 +151,6 @@ export default function ext() {
                     { value: 'top' }, { value: 'middle' }, { value: 'bottom' }, { value: 'horizontal' }
                   ],
                   defaultValue: "top"
-                },
-                nodeShape: {
-                  ref: "nodeShape",
-                  type: "string",
-                  component: "dropdown",
-                  label: "Node Shape",
-                  options: [
-                    { value: 'dot' },
-                    { value: 'square' },
-                    { value: 'star' },
-                    { value: 'triangle' },
-                    { value: 'triangleDown' },
-                    { value: 'diamond' }
-                  ],
-                  defaultValue: "dot"
                 },
                 shadowMode: {
                   ref: "shadowMode",
